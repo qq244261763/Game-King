@@ -7,6 +7,6 @@ public class FightingFragment extends BaseFragment {
 
     @Override
     public int bindLayout() {
-        return R.layout.view_fighting
+        return R.layout.view_fighting;
     }
 }
