@@ -1,4 +1,4 @@
-package com.example.person.gameking.view;
+package com.example.person.gameking.layout;
 
 import com.example.person.gameking.R;
 import com.example.person.gameking.base.BaseFragment;
