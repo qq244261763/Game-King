@@ -1,116 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/abc"
-    >
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_weight="1"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="48dp"
+        android:background="#DDAA00"
+        android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+        <com.example.person.gameking.view.CardHeapView
+            android:id="@+id/cardHeapView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <com.example.person.gameking.view.BattleView
+        android:id="@+id/battleArea"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        >
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_weight="1"
+        android:background="@drawable/ic_launcher_background">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="融"
+            android:layout_gravity="center"
+            android:text="战斗区域"
             android:textColor="@color/White"
-            android:textSize="25dp"
-            />
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="40"
-            android:textColor="#fff"
-            android:textSize="20dp"
-            />
+            android:textSize="24sp" />
 
-    </LinearLayout>
-    <com.example.person.gameking.view.SeatLayout
-        android:layout_weight="3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:opponent="true"
-        >
-
-    </com.example.person.gameking.view.SeatLayout>
-    <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        >
         <TextView
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#55DDAA00"
             android:gravity="center"
-            android:text="LP:8000"
-            android:textColor="@color/White"
-            />
+            android:text="敌方出牌区"
+            android:textColor="@color/White" />
+
         <TextView
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:background="#5500AA00"
             android:gravity="center"
-            android:text="80"
-            android:textColor="@color/White"
+            android:text="我方出牌区"
+            android:textColor="@color/White" />
 
-            />
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:gravity="center"
-            android:text="LP:8000"
-            android:textColor="@color/White"
-        />
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_weight="3"
+    </com.example.person.gameking.view.BattleView>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="48dp"
+        android:background="#00AA00"
+        android:gravity="center">
 
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="融"
-            android:textColor="@color/White"
-            android:textSize="25dp"
-            />
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="40"
-            android:textColor="#fff"
-            android:textSize="20dp"
-            />
+        <com.example.person.gameking.view.CardHeapView
+            android:id="@+id/cardHeapView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"/>
-
+    </FrameLayout>
 </android.support.v7.widget.LinearLayoutCompat>
