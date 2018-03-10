@@ -29,12 +29,9 @@ public class FightingFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         cardHeapView1 = view.findViewById(R.id.cardHeapView1);
         cardHeapView2 = view.findViewById(R.id.cardHeapView2);
-        battleView = view.findViewById(R.id.battleArea);
+        battleView = view.findViewById(R.id.battleArea1);
 
         cardHeapView1.setText("我方牌组");
         cardHeapView2.setText("敌方牌组");
-
-        battleView.addCard(new CardView(getActivity(), 2, 3));
-        battleView.addCard(new CardView(getActivity(), 7, 4));
     }
 }
