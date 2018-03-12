@@ -1,15 +1,11 @@
 package com.example.person.gameking.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.FrameLayout;
-
-import com.example.person.gameking.R;
 
 /**
  * !Created by Administrator on 2018/3/3.
@@ -18,7 +14,35 @@ import com.example.person.gameking.R;
 public class BattleView extends FrameLayout {
 
 
-    private boolean isOpponent;
+    private int riverH = 50;//河道高度
+    private int gridSize = 10;//格子大小
+    private int gridDistanceH = 50;//格子间高度
+    private int distance = 100;//魔法与怪兽间高度
+    private int paddingLeft = 0;
+    private int paddingTop = 0;
+    private int paddingRight = 0;
+    private int paddingButtom = 0;
+    private int[] beastOpponentOne;
+    private int[] beastOpponentTwo;
+    private int[] beastOpponentThree;
+    private int[] beastOpponentFour;
+    private int[] beastOpponentFive;
+
+    private int[] beastOne;
+    private int[] beastFive;
+    private int[] beastTwo;
+    private int[] beastThree;
+    private int[] beastFour;
+    private int[] magicOpponentOne;
+    private int[] magicOpponentTwo;
+    private int[] magicOpponentThree;
+    private int[] magicOpponentFour;
+    private int[] magicOpponentFive;
+    private int[] magicOne;
+    private int[] magicTwo;
+    private int[] magicThree;
+    private int[] magicFour;
+    private int[] magicFive;
 
     public BattleView(Context context) {
         super(context);
@@ -36,49 +60,71 @@ public class BattleView extends FrameLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.BattleView);
-        isOpponent = ta.getBoolean(R.styleable.BattleView_opponent,false);
-        ta.recycle();
-        Log.e("isOpponent", isOpponent +"");
+
     }
-
-
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //绘制格子
+
+        paddingLeft=getPaddingLeft();
+        paddingRight=getPaddingRight();
+        paddingTop=getPaddingTop();
+        paddingButtom=getPaddingBottom();
+
         int height = getMeasuredHeight();//view的高度
         int width = getMeasuredWidth();//view的宽度
-        int[] one;
-        int[] two;
-        int[] three;
-        int[] four;
-        int[] five;
-        if (isOpponent) {
+        int riverY = height/2-riverH/2+paddingTop;//河道y轴坐标
+        int fieldH = riverY-paddingTop;//场上高度
+        int fieldW = width-paddingRight-paddingLeft;//场上宽度
+        int centerX = width/2;//x轴中心宽度
 
-            one = new int[]{width/2,height};
-            two = new int[]{one[0]/2,height/2};
-            three = new int[]{one[0]+two[0],two[1]};
-            four = new int[]{0,0};
-            five = new int[]{width,0};
 
-        }else {
-            one = new int[]{width/2,0};
-            two = new int[]{one[0]/2,height/2};
-            three = new int[]{one[0]+two[0],two[1]};
-            four = new int[]{0,height};
-            five = new int[]{width,height};
-        }
 
+        //绘制格子
         Paint paint = new Paint();
+        //beast区
         paint.setColor(Color.YELLOW);
-        canvas.drawCircle(one[0],one[1],10,paint);
-        canvas.drawCircle(two[0],two[1],10,paint);
-        canvas.drawCircle(three[0],three[1],10,paint);
-        canvas.drawCircle(four[0],five[1],10,paint);
+        //opponent
+        beastOpponentOne = drawGrid(canvas,paint,centerX,fieldH-riverH);
+        beastOpponentTwo = drawGrid(canvas,paint,fieldW/2/2+paddingLeft,beastOpponentOne[1]- gridDistanceH);
+        beastOpponentThree = drawGrid(canvas,paint,centerX+(fieldW/2/2),beastOpponentTwo[1]);
+        beastOpponentFour = drawGrid(canvas,paint,paddingLeft,beastOpponentThree[1]- gridDistanceH);
+        beastOpponentFive = drawGrid(canvas,paint,fieldW+paddingRight,beastOpponentThree[1]- gridDistanceH);
+        //me
+        beastOne = drawGrid(canvas,paint,centerX,fieldH+riverH);
+        beastTwo = drawGrid(canvas,paint,fieldW/2/2+paddingLeft,beastOne[1]+ gridDistanceH);
+        beastThree = drawGrid(canvas,paint,centerX+(fieldW/2/2),beastTwo[1]);
+        beastFour = drawGrid(canvas,paint,paddingLeft,beastThree[1]+ gridDistanceH);
+        beastFive = drawGrid(canvas,paint,fieldW+paddingRight,beastFour[1]);
+        //magic区
+        paint.setColor(Color.BLUE);
+        //opponent
+        magicOpponentOne = drawGrid(canvas,paint,beastOpponentOne[0],beastOpponentOne[1]-distance);
+        magicOpponentTwo = drawGrid(canvas,paint,beastOpponentTwo[0],beastOpponentTwo[1]-distance);
+        magicOpponentThree = drawGrid(canvas,paint,beastOpponentThree[0],beastOpponentThree[1]-distance);
+        magicOpponentFour = drawGrid(canvas,paint,beastOpponentFour[0],beastOpponentFour[1]-distance);
+        magicOpponentFive = drawGrid(canvas,paint,beastOpponentFive[0],beastOpponentFive[1]-distance);
+        //me
+        magicOne = drawGrid(canvas,paint,beastOne[0],beastOne[1]+distance);
+        magicTwo = drawGrid(canvas,paint,beastTwo[0],beastTwo[1]+distance);
+        magicThree = drawGrid(canvas,paint,beastThree[0],beastThree[1]+distance);
+        magicFour = drawGrid(canvas,paint,beastFour[0],beastFour[1]+distance);
+        magicFive = drawGrid(canvas,paint,beastFive[0],beastFive[1]+distance);
 
-        Log.e("one",one[1]+""+one[0]);
+    }
+
+    /**
+     *绘制格子并返回xy坐标
+     * @param canvas
+     * @param paint
+     * @param x
+     * @param y
+     */
+    private int[] drawGrid(Canvas canvas,Paint paint,int x,int y) {
+
+        canvas.drawCircle(x,y,gridSize, paint);
+        return new int[]{x,y};
 
     }
 }
