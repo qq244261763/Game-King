@@ -26,11 +26,13 @@ import java.util.List;
 
 public class CardHeapView extends View {
     private static final String TAG = "CardHeapView";
-    private int num = 24;
+    private int num = 40;
     private List<Rect> rectList = new ArrayList<>();
     private Paint paint;
     private Bitmap cardBackground;
     private String text;
+    private int width;
+    private int height;
 
     public CardHeapView(Context context) {
         super(context);
@@ -47,6 +49,12 @@ public class CardHeapView extends View {
         init();
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(width, (int)(80*0.4+height));
+    }
+
     private void init() {
         paint = new Paint();
 //        paint.setStyle(Paint.Style.STROKE);
@@ -58,8 +66,8 @@ public class CardHeapView extends View {
         cardBackground = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_round);
 
         DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
-        int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 36, metrics);
-        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, metrics);
+        width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 36, metrics);
+        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, metrics);
         Log.d(TAG, "init: " + width + "," + height);
 
         for (int i = 0; i < num; i++) {
@@ -73,10 +81,10 @@ public class CardHeapView extends View {
 
     private void computeAllRect() {
         DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
-        int gap = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, metrics);
+        int gap = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0.4f, metrics);
         for (int i = 0; i < num; i++) {
             Rect rect = rectList.get(i);
-            rect.offsetTo(getMeasuredWidth() - rect.width() - i * gap, 0);
+            rect.offsetTo(getMeasuredWidth() - rect.width(), getMeasuredHeight()-rect.height()-i+ gap);
         }
         Log.d(TAG, "computeAllRect: " + rectList.size());
     }

@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void replaceFragment(Fragment fragment) {
         transaction.replace(R.id.layout_root,fragment);
         transaction.commitAllowingStateLoss();
